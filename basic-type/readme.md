@@ -176,6 +176,6 @@ let strLength: number = (someValue as string).length;
 
 两个例子是等同的。使用一个而使用另一个大多是口味不同。然而，当使用 TypeScript 和 JSX 时，只允许使用 `as` 式的断言。
 
-## about let
+## A note about `let`
 
 目前为止，你应该注意到我，我们一直在使用 `let` 而非 JavaScript 的 `var` 关键字。`let` 关键字实际是是一个 TypeScript 中可用的新的 JavaScript 概念。我们稍后会详细讨论，JavaScript 中常见的问题使用 `let` 可以得到缓解，所以我们建议尽呆能使用 `let` 而非 `var`.
