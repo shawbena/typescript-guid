@@ -1,5 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 /*
  * app configurations
  * Array[app]
@@ -23,5 +21,11 @@ module.exports = [{
 		setTimeout: 'set-timeout',
 		objectDestructing: 'object-destructing',
 		spread: 'spread'
+	}
+}, {
+	dir: 'modules',
+	entry: {
+		app: '',
+		reExportToExtend: 're-export-to-extend'
 	}
 }];

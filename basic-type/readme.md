@@ -144,7 +144,7 @@ let unsable: void = undefined;
 let u: undefined = undefined;
 let n: null = null;
 ```
-但是 `null` 和 `undefined` 是其他类型的子类开。这意味着你可以把 `null` 和 `undefined` 赋给如 `number`.
+但是 `null` 和 `undefined` 是其他类型的子类型。这意味着你可以把 `null` 和 `undefined` 赋给如 `number`.
 
 然而，当使用 `--strictNullChecks` 标志时，`null` 和 `undefined` 只能赋给 `void` 和其相对应的类型。这有助于避免一些常见的错误。如果你想传递 `string` 或 `null` 或 `undefined`, 你可以使用联合类型 `string | null | undefined`. 稍后会讲联合类型。
 
