@@ -25,7 +25,7 @@ function pickCard(x: number): {
 
 function pickCard(x: number): { suit: string; card: number; }
 
-function pickCard(x): any {
+function pickCard(x: any): any {
 	if(typeof x == 'object'){
 		let pickCard = Math.floor(Math.random() * x.length);
 	}else if(typeof x == 'number'){
@@ -42,8 +42,8 @@ let myDeck = [{
 	card: 4,
 }];
 
-let pickedCard1 = myDeck[pickCard(myDeck)];
-console.log('card: ' + pickedCard1.card + ' of ' + pickedCard1.suit);
+// let pickedCard1 = myDeck[pickCard(myDeck)];
+// console.log('card: ' + pickedCard1.card + ' of ' + pickedCard1.suit);
 
-let pickedCard2 = pickCard(15);
-console.log("card: " + pickedCard2.card + ' of ' + pickedCard2.suit);
+// let pickedCard2 = pickCard(15);
+// console.log("card: " + pickedCard2.card + ' of ' + pickedCard2.suit);

@@ -2,7 +2,7 @@ export default () => {}
 
 let suits = ['hearts', 'spades', 'clubs', 'diamonds'];
 
-function pickCard(x): any {
+function pickCard(x: any): any {
 	if(typeof x == 'object'){
 		let pickCard = Math.floor(Math.random() * x.length);
 	}else if(typeof x == 'number'){
