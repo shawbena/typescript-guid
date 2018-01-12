@@ -31,6 +31,6 @@
         alert('my warning message');
     }
     let unusable: void = undefined;
-    unusable = null;
+    // unusable = null;
     // unusable = 5;//Type '5' is not assignable to type 'void'
 })();

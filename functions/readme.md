@@ -436,8 +436,6 @@ console.log("card: " + pickedCard2.card + ' of ' + pickedCard2.suit);
 _./overloads/overload-list.ts_
 
 ```ts
-export default () => {}
-
 let suits = ['hearts', 'spades', 'clubs', 'diamonds'];
 
 function pickCard(x: { suit: string; card: number; }[]): number;

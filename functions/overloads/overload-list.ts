@@ -19,8 +19,6 @@ function pickCard(x: number): {
 */
 function pickCard(x: number): { suit: string; card: number; }
 
-
-
 function pickCard(x: any):any {
 	if(typeof x == 'object'){
 		let pickCard = Math.floor(Math.random() * x.length);

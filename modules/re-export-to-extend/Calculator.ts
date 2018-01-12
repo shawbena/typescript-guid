@@ -1,3 +1,4 @@
+import assertNever from '../../utils/assert-never';
 export class Calculator{
 	private current = 0;
 	private memory = 0;
@@ -23,6 +24,7 @@ export class Calculator{
 			case '-': return left - right;
 			case '*': return left * right;
 			case '/': return left / right;
+			default: return assertNever(operator);
 		}
 	}
 

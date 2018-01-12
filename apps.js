@@ -28,4 +28,10 @@ module.exports = [{
 		app: '',
 		reExportToExtend: 're-export-to-extend'
 	}
+}, {
+	dir: 'advanced-types',
+	entry: {
+		app: '',
+		indexTypes: 'index-types'
+	}
 }];

@@ -6,7 +6,7 @@ let o = {
 	e: [1, 2, 3]
 };
 // let { a, b } = o;
-let {a, b}: {a: string, b: number} = o;
+// let {a, b}: {a: string, b: number} = o;
 
 // ({ c, d } = { c: 'baz', d: 101 }); // 识别不了
 
