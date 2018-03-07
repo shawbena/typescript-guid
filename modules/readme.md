@@ -1,6 +1,6 @@
 # Modules
 
-从 ECMAScript 2015 开始，JavaScript 有模块的概仿。TypeScript 也有这个概念。
+从 ECMAScript 2015 开始，JavaScript 有模块的概念。TypeScript 也有这个概念。
 
 模块在自己的作用域中执行，而非在全局作用域中。这意味着在模块中声明的变量，函数，类等等除非明确地使用 [export](#export) 导出，否则是对模块外不可见的。
 
@@ -54,9 +54,34 @@ export { ZipCodeValidator as mainValidator };
 
 __Re-exports__
 
+模块常常扩展其他模块，并部分地暴露自己的一些特色。
+
+一个重导出 (re-export)并不是本地引入，或引入一个本地变量。
+
+[ParseIntBasedZipCodeValidator](./ParseIntBasedZipCodeValidator)
+
+```ts
+export class ParseIntBasedZipCodeValidator{
+	isAcceptable(s: string){
+		return s.length === 5 && parseInt(s).toString() === s;
+	}
+}
+
+// Export original validator but rename it
+export {ZipCodeValidator as RegExpBasedZipCodeValidator} from './ZipCodeValidator';
+```
+
+可选地，一个模块可以包裹一个或多个模块并用 `export * from "module"` 语法结合所有他们的输出。
+
+```ts
+export * from './StringValidator'; // exports interface 'StringValidator'
+export * from './LettersOnlyValidator'; // export class 'LettersOnlyValidator'
+export * from './ZipCodeValidator';
+```
+
 ## Import
 
-引入就好象从一个模块导出一样 easy. 引入一个导出的声明通过以下 `import` 形式之一完成：
+引入就下如从一个模块导出一样 easy. 引入一个导出的声明通过以下 `import` 形式之一完成：
 
 __Import a single export from a module__
 
@@ -323,7 +348,7 @@ strings.forEach(s => {
 
 描述不是用 TypeScript 写的库的外形，我们需要声明库暴露的 API.
 
-我们称声明不是实现叫 "ambient". 通常是在 `.d.ts` 文件中定义的。如果你熟悉 C/C++, 可以想象一下 `.h` 文件。让我们看几个例子。
+我们称不定义实现的声明叫 "ambient". 通常是在 `.d.ts` 文件中定义的。如果你熟悉 C/C++, 可以想象一下 `.h` 文件。让我们看几个例子。
 
 ### Ambient Modules
 

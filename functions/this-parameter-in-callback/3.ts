@@ -5,16 +5,17 @@ interface UIElement {
 }
 
 class Handler {
-	info: string;
+	// [ts] 属性“info”没有初始化表达式，且未在构造函数中明确赋值。
+	// info: string;
 	onClickBad = (e: Event) =>{
-		this.info = '';
+		// this.info = '';
 	}
 }
 
 let h = new Handler();
 let uiElement: UIElement = {
 	addClickListener: function(e){
-		this.hh = '';
+		// this.hh = '';
 	}
 };
 
