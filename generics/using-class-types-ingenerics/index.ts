@@ -1,27 +1,27 @@
-class BeeKeeper{
-	hasMask: boolean;
-}
+// class BeeKeeper{
+// 	hasMask: boolean;
+// }
 
-class ZooKeeper{
-	nametag: string;
-}
+// class ZooKeeper{
+// 	nametag: string;
+// }
 
-class Animal{
-	numLegs: number;
-}
+// class Animal{
+// 	numLegs: number;
+// }
 
-class Bee extends Animal{
-	keeper: BeeKeeper;
-}
+// class Bee extends Animal{
+// 	keeper: BeeKeeper;
+// }
 
-class Lion extends Animal{
-	keeper: ZooKeeper;
-}
+// class Lion extends Animal{
+// 	keeper: ZooKeeper;
+// }
 
-function createInstnace<A extends Animal>(c: new () => A): A{
-	return new c();
-}
+// function createInstnace<A extends Animal>(c: new () => A): A{
+// 	return new c();
+// }
 
-createInstnace(Lion).keeper.nametag;
-createInstnace(Bee).keeper.hasMask;
+// createInstnace(Lion).keeper.nametag;
+// createInstnace(Bee).keeper.hasMask;
 // createInstnace(BeeKeeper);

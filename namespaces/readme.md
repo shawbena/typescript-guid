@@ -276,3 +276,25 @@ let shape = new Shapes.Polygons.Square();
 // good feature
 import polygons = Shapes.Polygons;
 ```
+
+##
+
+ES6 默认导出不能用于名称空间：
+
+```ts
+// shapes.ts
+// ok
+export namespace Shapes{
+    export class Triangle { /* ... */ }
+    export class Square { /* ... */ }
+}
+```
+
+```ts
+// shapes.ts
+// [ts] 找不到名称“namespace”。
+export default namespace Shapes{
+    export class Triangle { /* ... */ }
+    export class Square { /* ... */ }
+}
+```

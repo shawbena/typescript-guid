@@ -1,4 +1,4 @@
-interface LabelledValue {
+export interface LabelledValue {
 	label: string;
 }
 

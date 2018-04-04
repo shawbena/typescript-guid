@@ -26,7 +26,8 @@ module.exports = [{
 	dir: 'modules',
 	entry: {
 		app: '',
-		reExportToExtend: 're-export-to-extend'
+		reExportToExtend: 're-export-to-extend',
+		importImage: 'import-image'
 	}
 }, {
 	dir: 'advanced-types',

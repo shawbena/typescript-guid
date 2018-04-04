@@ -5,7 +5,7 @@ interface UIElement {
 }
 
 class Handler {
-	info: string;
+	info = '';
 	onClickBad(this: void, e: Event){
 		// this.info = e.message;
 		// [ts] 类型“void”上不存在属性“info”。

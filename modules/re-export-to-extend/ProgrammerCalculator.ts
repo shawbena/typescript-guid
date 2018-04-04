@@ -10,10 +10,11 @@ class ProgrammerCalculator extends Calculator{
 		}
 	}
 
-	protected processDigit(digit: string, currentValue: number){
+	protected processDigit(digit: string, currentValue: number): number|undefined{
 		if(ProgrammerCalculator.digits.indexOf(digit) >= 0){
 			return currentValue * this.base + ProgrammerCalculator.digits.indexOf(digit);
 		}
+		return undefined;
 	}
 }
 

@@ -5,7 +5,7 @@ interface UIElement {
 }
 
 class Handler {
-	info: string;
+	info = '';
 	onClickBad(this: Handler, e: Event){
 		// this.info = e.message;
 		this.info = '';

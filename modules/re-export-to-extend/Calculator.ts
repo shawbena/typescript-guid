@@ -2,20 +2,21 @@ import assertNever from '../../utils/assert-never';
 export class Calculator{
 	private current = 0;
 	private memory = 0;
-	private operator: string;
-
-	protected processDigit(digit: string, currentValue: number){
+	private operator = '';
+	protected processDigit(digit: string, currentValue: number): number | undefined{
 		// processDigit 可能不返回值，但为什么类型推断返回类型为 number
 		// 参见[类型推断](/type-inference/)
 		if(digit >= '0' && digit <= '9'){
 			return currentValue * 10 + (digit.charCodeAt(0) - '0'.charCodeAt(0))
 		}
+		return undefined;
 	}
 
-	protected processOperator(operator: string){
+	protected processOperator(operator: string): string{
 		if(['+', '-', '*', '/'].indexOf(operator) >= 0){
 			return operator;
 		}
+		return '';
 	}
 
 	protected evaluateOperator(operator: string, left: number, right: number): number{

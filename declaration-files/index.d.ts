@@ -1,0 +1,1 @@
+declare function reverse(s: String): String;

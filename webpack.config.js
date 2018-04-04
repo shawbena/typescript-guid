@@ -19,11 +19,9 @@ const commonConfig = {
 			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'
 			test: /\.tsx?$/,
 			use: 'awesome-typescript-loader'
-		}, {
-			// All output '.js' file will have any sourcemaps re-processed by 'source-map-loader'
-			enforce: 'pre',
-			test: /\.js$/,
-			use: 'source-map-loader'
+		},{
+			test: /\.(svg|png|je?pg)$/,
+			use: 'file-loader'
 		}]
 	},
 	plugins: [
