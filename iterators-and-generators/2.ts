@@ -1,1 +1,1 @@
-// let pets = new Set(['Cat', 'Dog', 'Hamster']);
+let pets = new Set(['Cat', 'Dog', 'Hamster']);
