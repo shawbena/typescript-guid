@@ -144,11 +144,10 @@ import $ from 'JQuery';
 $('button.continue').html('Next Step...');
 ```
 
-类和函数声明可直接被写作默认输出。默认输出的类和函数的名称是可选的。// and Enum, interface...?
-
-ZipCodeValidator.ts
+类和函数声明可直接被写作默认输出。默认输出的类和函数的名称是可选的。
 
 ```ts
+// ./default-import-export/ZipCodeValidator.ts
 export default class ZipCodeValidator{
 	static numberRegexp = /^[0-9]+$/;
     isAcceptable(s: string) {
@@ -156,12 +155,39 @@ export default class ZipCodeValidator{
 }
 ```
 
-Test.ts
+```js
+// 编译成：
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ZipCodeValidator = /** @class */ (function () {
+    function ZipCodeValidator() {
+    }
+    ZipCodeValidator.prototype.isAcceptable = function (s) {
+        return s.length === 5 && ZipCodeValidator.numberRegexp.test(s);
+    };
+    ZipCodeValidator.numberRegexp = /^[0-9]+$/;
+    return ZipCodeValidator;
+}());
+exports.default = ZipCodeValidator;
+
+```
 
 ```ts
+// ./default-import-export/test.ts
 import validator from './ZipCodeValidator';
 
 let myValidator = new Validator();
+```
+
+```js
+// 编译成：
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ZipCodeValidator_1 = __importDefault(require("./ZipCodeValidator"));
+var myValidator = new ZipCodeValidator_1.default();
 ```
 
 或
@@ -213,9 +239,9 @@ CommonJS 和 AMD 在致上都有 `exports` 对象的概念，他包含从一个�
 
 `export = ` 语法指定要从模块输出的单个对象。他可以是类，接口，名称空间，函数，或枚举。当引入使用 `export =` 的模块时，必须用 TypeScript 特定的 `module = require('module')`.
 
-ZipCodeValidator.ts
 
 ```ts
+// ./node-requirejs-export-import/ZipCodeValidator.ts
 let numberRegexp = /^[0-9]+$/;
 class ZipCodeValidator{
 	isAcceptable(s: string){
@@ -226,9 +252,14 @@ class ZipCodeValidator{
 export = ZipCodeValidator;
 ```
 
-Test.ts
+```js
+// 编译的代码为：
+//。。。
+module.exports = ZipCodeValidator;
+```
 
 ```ts
+// ./node-requirejs-export-import/test.ts
 import zip = require('./ZipCodeValidator');
 
 // some samples to try
@@ -241,6 +272,14 @@ let validator = new zip();
 strings.forEach(s => {
 	console.log(`${ s } - ${ validator.isAcceptable(s)} ? 'matches' : 'does not match'`);
 });
+```
+
+```js
+// 编译的代码为：
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var zip = require("./ZipCodeValidator");
+// ...
 ```
 
 ## Code Generation for Modules
@@ -341,12 +380,57 @@ strings.forEach(s => {
 
 ## Optional Module Loading and Other Advanced Loading Scenarios
 
-有时，你可能想在某些条件下加载某个模块。在 TypeScript 中, 我们可以使用下面展示的模式来实现这种情形和其他高级的加载情形，直接调用模块加载器而不丢失类型安全。//既然如此也可以使用动态 `import()`
+有时，你可能想在某些条件下加载某个模块。在 TypeScript 中, 我们可以使用下面展示的模式来实现这种情形和其他高级的加载情形，直接调用模块加载器而不丢失类型安全。
 
 编译器侦测输出的 JavaScript 中是否每个模块都用到了，如果一个模块标识符只用于类型声明但从未用于表达式，那不会生成用于那个模块的 `require` 调用。忽略无用的引用是好的性能优化，而且也允许可选地加载这些模块。
 
-这种模式的核心概念是 `import id = require('...')` 语句给我们访问模块暴露出的类型。正如下面 `if` 块中显式的那样，模块加载器是动态调用的 (通过 `require`)。这对引用消除优化施加影响，所以模块只在需要时加载。
+这种模式的核心概念是 `import id = require('...')` 语句给我们访问模块暴露出的类型。正如下面 `if` 块中显式的那样，模块加载器是动态调用的 (通过 `require`)。这利用了引用擦除优化，使得模块只在需要时加载。为了使这种模式能起作用，通常 `import` 定义的符号只能用在类型们置 (不要用在可能输出 JavaScript 的们置)。
 
+为了维护类型安全，我们使用 `typeof` 关键字。`typeof` 关键字，在类型位置使用时，生成值的类型，这里是模块的类型。
+
+Dynamic Module Loading in Node.js
+
+```ts
+declare function require(moduleName: string): any;
+
+import { ZipCodeValidator as Zip } from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    let ZipCodeValidator: typeof Zip = require("./ZipCodeValidator");
+    let validator = new ZipCodeValidator();
+    if (validator.isAcceptable("...")) { /* ... */ }
+}
+```
+
+Dynamic Module Loading in requirejs
+
+```ts
+declare function require(moduleNames: string[], onLoad: (...args: any[]) => void): void;
+
+import * as Zip from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    require(["./ZipCodeValidator"], (ZipCodeValidator: typeof Zip) => {
+        let validator = new ZipCodeValidator.ZipCodeValidator();
+        if (validator.isAcceptable("...")) { /* ... */ }
+    });
+}
+```
+
+Dynamic Module Loading in System.js
+
+```ts
+declare const System: any;
+
+import { ZipCodeValidator as Zip } from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    System.import("./ZipCodeValidator").then((ZipCodeValidator: typeof Zip) => {
+        var x = new ZipCodeValidator();
+        if (x.isAcceptable("...")) { /* ... */ }
+    });
+}
+```
 。。。
 
 ## Working with Other JavaScript Libraries
@@ -361,89 +445,25 @@ Node.js 中，大多任务由加载一个或多个模块完成。
 
 我们可以在每个模块自己的 `.d.ts` 文件中的顶层定义输出声明，但把他们写在一个大 `.d.ts` 文件中更方便一些。
 
-要这样做，我们使用一个类似环境名称空间 (ambient namespaces) 的结构，但我们使用 `module` 关键字及稍后可用来引入的名称，如：
+要这样做，我们使用一个类似环境名称空间 (ambient namespaces) 的结构，但我们使用 `module` 关键字及稍后可用来引入的名称用引号包括，如：
 
 node.d.ts (simplified excerpt)
 
 ```ts
-import { ParsedUrlQuery } from 'querystring';
-
-    export interface UrlObjectCommon {
-        auth?: string;
-        hash?: string;
-        host?: string;
-        hostname?: string;
-        href?: string;
-        path?: string;
-        pathname?: string;
+declare module "url" {
+    export interface Url {
         protocol?: string;
-        search?: string;
-        slashes?: boolean;
+        hostname?: string;
+        pathname?: string;
     }
 
-    // Input to `url.format`
-    export interface UrlObject extends UrlObjectCommon {
-        port?: string | number;
-        query?: string | null | { [key: string]: any };
-    }
+    export function parse(urlStr: string, parseQueryString?, slashesDenoteHost?): Url;
+}
 
-    // Output of `url.parse`
-    export interface Url extends UrlObjectCommon {
-        port?: string;
-        query?: string | null | ParsedUrlQuery;
-    }
-
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject | string): string;
-    export function resolve(from: string, to: string): string;
-
-    export interface URLFormatOptions {
-        auth?: boolean;
-        fragment?: boolean;
-        search?: boolean;
-        unicode?: boolean;
-    }
-
-    export class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
-        append(name: string, value: string): void;
-        delete(name: string): void;
-        entries(): IterableIterator<[string, string]>;
-        forEach(callback: (value: string, name: string) => void): void;
-        get(name: string): string | null;
-        getAll(name: string): string[];
-        has(name: string): boolean;
-        keys(): IterableIterator<string>;
-        set(name: string, value: string): void;
-        sort(): void;
-        toString(): string;
-        values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string, string]>;
-    }
-
-    export class URL {
-        constructor(input: string, base?: string | URL);
-        hash: string;
-        host: string;
-        hostname: string;
-        href: string;
-        readonly origin: string;
-        password: string;
-        pathname: string;
-        port: string;
-        protocol: string;
-        search: string;
-        readonly searchParams: URLSearchParams;
-        username: string;
-        toString(): string;
-        toJSON(): string;
-    }
-
-decalre module "path"{
-	export function normalize(p: string): string;
-	export function join(...paths: any[]): string;
-	export var sep: string;
+declare module "path" {
+    export function normalize(p: string): string;
+    export function join(...paths: any[]): string;
+    export var sep: string;
 }
 ```
 
@@ -503,7 +523,7 @@ import data from 'json!http://example.com/data.json';
 
 如：
 
-math-lib.d.ts
+math-lib.d.ts <!-- 把这个库想像成 React -->
 
 ```ts
 export const isPrime(x: number): boolean;
@@ -774,4 +794,5 @@ On the organization front, 用名称空间在全局作用域中分组逻辑相�
 - 一个文件只有一个 `export class` 或 `export function` (考虑使用 `export default`)
 
 - 多个文件外层都有同样的 `export namespace Foo{` (别以为这会合并成一个 `Foo`!)
+
 

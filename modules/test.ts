@@ -15,6 +15,6 @@ validators['Letters only'] = new LettersOnlyValidator();
 // show whether each string passed each validator
 strings.forEach(s => {
 	for(let name in validators){
-		console.log(`"${ s }" - ${validators[name].isAcceptable} ? 'matches' : 'does not match' ${ name }`);
+		console.log(`"${s}" - ${validators[name].isAcceptable(s) ? 'matches' :'does not match'} ${name}`);
 	}
 });

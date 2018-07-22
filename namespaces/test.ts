@@ -1,7 +1,5 @@
-/// <reference path="validators.ts" />
-/// <reference path="lettersOnlyValidator.ts" />
-/// <reference path="zipCodeValidator.ts" />
-// Some samples to try
+(function(){
+    // Some samples to try
 let strings = ["Hello", "98052", "101"];
 
 // Validators to use
@@ -16,3 +14,4 @@ for (let s of strings) {
         console.log(`'${ s }' ${ isMatch ? "matches" : "does not match" } '${ name }'.`);
     }
 }
+}())

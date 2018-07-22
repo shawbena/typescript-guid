@@ -1,5 +1,5 @@
 import a = require('./a.png');
-import b from '../../asserts/images/corpse_bride_by_singularwish-d5qod9g.jpg';
+import b from './corpse_bride_by_singularwish-d5qod9g.jpg';
 
 let imgA = document.createElement('img');
 let imagB = document.createElement('img');

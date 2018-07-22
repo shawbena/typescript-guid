@@ -66,7 +66,7 @@ for (let s of strings) {
 
 随着应用的增长，我们想把代码分割至多个文件中以便维护。
 
-## Multi-file namespaces
+### Multi-file namespaces
 
 这里，我们把我们的 `Validation` 名称空间放在了多个文件中。即使是分开放置，他们每个也可以贡献给同样的名称空间好像他们都在一个地方定义一样。因为存在文件间的依赖，我们将添加引用标签 (reference tag) 告诉编译器文件间的关系。不用改动我们的测试代码。
 
@@ -278,6 +278,8 @@ import polygons = Shapes.Polygons;
 ```
 
 ##
+
+内部模块现在是名称空间，外部模块现在是模块。
 
 ES6 默认导出不能用于名称空间：
 

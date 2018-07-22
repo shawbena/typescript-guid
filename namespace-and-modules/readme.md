@@ -51,7 +51,7 @@
 
 - `myModules.d.ts`
 
-```.d.ts
+```ts
 // In a .d.ts file or .ts file that is not a module:
 declare module 'SomeModule'{
     export function fn(): string;
@@ -60,7 +60,7 @@ declare module 'SomeModule'{
 
 - `myOtherModule.ts`
 
-```.d.ts
+```ts
 /// <reference path="myModules.d.ts" />
 import 8 as m from 'SomeModule';
 ```
