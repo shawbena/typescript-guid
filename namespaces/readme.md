@@ -300,3 +300,13 @@ export default namespace Shapes{
     export class Square { /* ... */ }
 }
 ```
+
+__@types/react/index.d.ts__
+
+```ts
+export = React;
+export as namespace React; // default alias? no, es6 module export? not sure
+declare namespace React{
+    /* ... */
+}
+```
