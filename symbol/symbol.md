@@ -1,10 +1,12 @@
 # Symbol
 
-`Symbol()` 函数返回一个 `symbol` 类型的值，。。。
+`Symbol()` 函数返回一个符号 (symbol) 类型的值。`Symbol` 有一些静态属性暴露内置对象中一些成员的，也有一些静态方法暴露全局符号注册库，`Symbol` 很像内置的对象类，但并不完成因为他不支持 "`new Symbol()`" 语法。
 
-`Symbol()` 返回的每个符号 (symbol) 值都是独一无二的。一个符号值可能用于对象属性标识符，这是这个数据类型的唯一目的。更多关于其目的及其用法的解释见 [glossary enter for Symbol](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
+<!-- Symbol 应该是个函数，但不是构造函数，只有静态属性和静态方法。为什么不把 Symbol 变成静态类呢？-->
 
-`symbol` 类型是一个[基本数据类型](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)。
+`Symbol()` 返回的每个符号 (symbol) 值都是独一无二的。一个符号值可用于对象属性标识符，这是这个数据类型的唯一目的。更多关于其目的及其用法的解释见 [glossary enter for Symbol](https://developer.mozilla.org/en-US/docs/Glossary/Symbol).
+
+符号数据类型是一个[基本数据类型](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)。
 
 ```js
 const symbol1 = Symbol();
