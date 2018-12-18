@@ -74,11 +74,11 @@
 
 - Module Resolution
 
-- Decalaration Merging
+- Decalaration Merging ✔
 
 - JSX
 
-- Decorators
+- Decorators ✔
 
 - Mixins
 
